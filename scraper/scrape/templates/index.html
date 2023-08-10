@@ -12,12 +12,12 @@
 <body>
   <header>
     <div>
-      <h1>SEO Analysis</h1>
+    <h1>SEO Analysis</h1>
     <form action="" method="post">
       {% csrf_token %}
-      <label for="url">URL:</label>
-      <input type="text" id="url" name="url"><br><br>
-      <input type="submit" value="Submit">
+      <label>URL:</label>
+      <input type="text" id="id_url" name="url"><br><br>
+      <input type="submit">
     </form>
     </div>
 
@@ -37,6 +37,7 @@
           <th class="cell">Meta Length</th>
           <th class="cell">H1</th>
           <th class="cell">H1 Length</th>
+          <th class="cell"></th>
         </tr>
       </thead>
       <tbody>
@@ -49,6 +50,12 @@
           <td class="cell">{{ row.meta_len}}</td>
           <td class="cell">{{ row.h1_text}}</td>
           <td class="cell">{{ row.h1_len}}</td>
+          <td class="cell">
+            <form action="" method="post">
+            {% csrf_token %}
+              <button name="delete" value={{ row.id}}>delete</button>
+           </form>
+          </td>
         </tr>
       {% endfor %}
       </tbody>

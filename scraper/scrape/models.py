@@ -10,3 +10,4 @@ class ScrapedPage(models.Model):
     meta_len = models.IntegerField()
     h1_text = models.TextField()
     h1_len = models.IntegerField()
+    del_field = models.TextField(default="delete")
