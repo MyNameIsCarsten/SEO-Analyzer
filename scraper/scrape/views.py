@@ -9,11 +9,12 @@ import requests
 def scrape(request):
     # Prüfen ob es sich um einen POST-request handelt
     if request.method == 'POST':
+        if 'url' in request.POST:
         # Wert des POST-request printen
-        print('Received data:', request.POST)
-        print('Received data:', request)
+            print('Received data:', request.POST)
+            print('Received data:', request)
 
-        try:
+
             URL = request.POST['url']
 
             page = requests.get(URL)
@@ -48,21 +49,69 @@ def scrape(request):
 
             # Neues Objekt erstellen
             ScrapedPage.objects.create(url=URL, title_text=title_text, title_len=title_len, meta_text=meta_text, meta_len=meta_len, h1_text=h1_text, h1_len=h1_len)
-        except:
-            print(request.POST['delete'])
-            id = request.POST['delete']
+
+            # Alle Objekte aus Datenbank holen
+            all_items = ScrapedPage.objects.all()
+            context = {
+                'all_items': all_items
+            }
+
+        elif 'row_id' in request.POST:
+            print('Received data:', request.POST)
+            id = request.POST['row_id']
 
             # Objekt löschen
             post_to_delete = ScrapedPage.objects.get(id=id)
             post_to_delete.delete()
 
+            # Alle Objekte aus Datenbank holen
+            all_items = ScrapedPage.objects.all()
+            context = {
+                'all_items': all_items
+            }
+
+        elif 'filter' in request.POST:
+            if request.POST['filter'] != 'reset':
+                print('Received data:', request.POST)
+
+                filter_value = request.POST['filter']
+
+                # Ausgewählte Objekte aus Datenbank holen
+                all_items = ScrapedPage.objects.filter(title_len__lt=filter_value).values()
+                context = {
+                    'all_items': all_items
+                }
+            else:
+
+                # Alle Objekte aus Datenbank holen
+                all_items = ScrapedPage.objects.all()
+                context = {
+                    'all_items': all_items
+                }
+
+        elif 'no_h1' in request.POST:
+            # Ausgewählte Objekte aus Datenbank holen
+            all_items = ScrapedPage.objects.filter(h1_text="No h1 found").values()
+            context = {
+                'all_items': all_items
+            }
+
+        else:
+
+            # Alle Objekte aus Datenbank holen
+            all_items = ScrapedPage.objects.all()
+            context = {
+                'all_items': all_items
+            }
+    else:
         # Alle Objekte aus Datenbank holen
-    all_items = ScrapedPage.objects.all()
-    context = {
-        'all_items': all_items
-    }
+        all_items = ScrapedPage.objects.all()
+        context = {
+            'all_items': all_items
+        }
 
     # Pass name of html template
+    print(context)
     return render(request, 'index.html', context)
 
 

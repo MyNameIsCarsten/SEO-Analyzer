@@ -30,38 +30,19 @@ input[type="submit"]  {
 }
 
 
-#yourdiv {
-  background-color: red; /* for visualization purposes */
-  display: inline-block;
-}
-
 .wrapper {
   margin: 0 auto;
   padding: 40px;
   max-width: 800px;
 }
 
+
 .div-table {
-  /*
-  margin: 0 0 40px 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  display: table;
-  box-shadow: 5px 5px 8px #888888;
-
-  border: 5px solid;
-  position: fixed;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 10px;*/
-
-  /*height: 200px;*/
-  /*width: 200px;*/
-  /*outline: red solid medium;*/
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 
 }
 @media screen and (max-width: 580px) {
@@ -102,3 +83,35 @@ input[type="submit"]  {
     display: block;
   }
 }
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+
+table {
+  table-layout: fixed;
+  width: 200px;
+}
+
+th,td {
+  width: 100px;
+  overflow: auto;
+}
+
+/*Address*/
+.cell:nth-child(1) {
+  width: 300px;
+}
+
+/*Title*/
+.cell:nth-child(2) {
+  width: 200px;
+}
+
+/*Meta text*/
+.cell:nth-child(4) {
+  width: 300px;
+}
+
