@@ -11,9 +11,6 @@ def scrape(request):
     if request.method == 'POST':
         if 'url' in request.POST:
         # Wert des POST-request printen
-            print('Received data:', request.POST)
-            print('Received data:', request)
-
 
             URL = request.POST['url']
 
@@ -57,7 +54,7 @@ def scrape(request):
             }
 
         elif 'row_id' in request.POST:
-            print('Received data:', request.POST)
+
             id = request.POST['row_id']
 
             # Objekt löschen
@@ -72,7 +69,6 @@ def scrape(request):
 
         elif 'filter' in request.POST:
             if request.POST['filter'] != 'reset':
-                print('Received data:', request.POST)
 
                 filter_value = request.POST['filter']
 
